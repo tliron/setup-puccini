@@ -15,10 +15,9 @@ runs:
   using: composite
   steps:
   - name: Setup Go
-    uses: actions/setup-go@v2
+    uses: actions/setup-go@v3
     with:
-      stable: false
-      go-version: 1.18.0-rc1
+      go-version: '>=1.18.0-rc.1'
   - name: Get Puccini
     run: git clone --branch ${{ inputs.version }} --depth 1 https://github.com/tliron/puccini.git
     shell: bash
