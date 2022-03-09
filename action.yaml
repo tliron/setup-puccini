@@ -1,26 +1,26 @@
 name: Setup Puccini TOSCA
-description: Enabled compilation and validation of TOSCA and CSAR
+description: Enables compilation and validation of TOSCA and CSAR
 branding:
-  icon: command
-  color: gray-dark
+  icon: cloud
+  color: blue
+
 inputs:
   version:
     description: Puccini version (tag or branch)
     required: false
     default: main
-outputs:
-  result:
-    description: The output from the command
+
 runs:
   using: composite
   steps:
   - name: Setup Go
     uses: actions/setup-go@v3
     with:
-      go-version: '>=1.18.0-rc.1'
-  - name: Get Puccini
+      go-version: ">=1.18.0-rc.1"
+  - name: Get Puccini source
+    # Note: actions/checkout does not work for us because it removes the ".git" directory, which we need for "scripts/build"
     run: git clone --branch ${{ inputs.version }} --depth 1 https://github.com/tliron/puccini.git
-    shell: bash
+    shell: sh
   - name: Build Puccini
     run: puccini/scripts/build
-    shell: bash
+    shell: sh
